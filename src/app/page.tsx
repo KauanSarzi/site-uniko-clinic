@@ -1,65 +1,179 @@
-import Image from "next/image";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import HeroSection from "@/components/sections/HeroSection";
+import CTABanner from "@/components/sections/CTABanner";
+import MapEmbed from "@/components/sections/MapEmbed";
+import SectionTitle from "@/components/sections/SectionTitle";
+import TratamentoCard from "@/components/cards/TratamentoCard";
+import DiferencialCard from "@/components/cards/DiferencialCard";
+import TestimonialCard from "@/components/cards/TestimonialCard";
+import { tratamentos } from "@/data/tratamentos";
+import { depoimentos } from "@/data/depoimentos";
+import type { Diferencial } from "@/types";
+import type { Metadata } from "next";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Uniko Clinic | Estética que Começa por Dentro",
+  description:
+    "Clínica de estética em São Paulo com protocolos exclusivos e atendimento personalizado por Andreia Sarzi, biomédica. Harmonização facial, toxina botulínica, laser e mais.",
+};
+
+const DIFERENCIAIS: Diferencial[] = [
+  {
+    id: "1",
+    icone: "protocolo",
+    titulo: "Protocolo Exclusivo",
+    descricao:
+      "Cada tratamento é desenhado individualmente, respeitando a anatomia e os objetivos únicos de cada paciente.",
+  },
+  {
+    id: "2",
+    icone: "biomédica",
+    titulo: "Biomédica Especializada",
+    descricao:
+      "Todos os procedimentos são realizados pela Andreia Sarzi, biomédica com formação e especialização em estética.",
+  },
+  {
+    id: "3",
+    icone: "natural",
+    titulo: "Resultado Natural",
+    descricao:
+      "Nossa filosofia é valorizar suas características. Resultado que parece seu — porque é.",
+  },
+  {
+    id: "4",
+    icone: "premium",
+    titulo: "Ambiente Premium",
+    descricao:
+      "Espaço pensado para o seu conforto e privacidade, com materiais e equipamentos de alta qualidade.",
+  },
+];
+
+const TRATAMENTOS_DESTAQUE = tratamentos.slice(0, 6);
+const DEPOIMENTOS_DESTAQUE = depoimentos.slice(0, 3);
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <Header />
+      <main>
+        {/* Hero */}
+        <HeroSection
+          titulo="Estética que começa por dentro"
+          subtitulo="Protocolos exclusivos para um resultado natural, personalizado e que valoriza quem você já é. Agende sua avaliação gratuita com a biomédica Andreia Sarzi."
+          ctaSecundario={{ label: "Conhecer tratamentos", href: "/tratamentos" }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        {/* Apresentação da clínica */}
+        <section className="bg-surface">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              <div className="flex flex-col gap-5">
+                <div className="inline-flex items-center gap-2">
+                  <div className="h-px w-8 bg-gold" aria-hidden="true" />
+                  <span className="font-sans text-xs tracking-[0.25em] text-gold uppercase">
+                    Uniko Clinic
+                  </span>
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-cream leading-tight">
+                  Cada pessoa é única. Cada protocolo, também.
+                </h2>
+                <div className="h-px w-12 bg-gold" aria-hidden="true" />
+                <p className="font-sans text-base text-muted leading-relaxed">
+                  A Uniko Clinic nasceu do propósito de oferecer estética com responsabilidade, ciência e cuidado. Aqui, você não recebe um tratamento padrão — você recebe um protocolo desenvolvido exclusivamente para o seu rosto, seu corpo e os seus objetivos.
+                </p>
+                <p className="font-sans text-base text-muted leading-relaxed">
+                  Localizada em São Paulo, a clínica é liderada por Andreia Sarzi, biomédica especializada em procedimentos estéticos minimamente invasivos.
+                </p>
+              </div>
+              <div className="aspect-[4/3] bg-card border border-line flex items-center justify-center">
+                <span className="font-sans text-xs text-muted/40 tracking-wide">
+                  [foto da clínica]
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tratamentos em destaque */}
+        <section className="bg-ink">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+            <SectionTitle
+              titulo="Nossos Tratamentos"
+              subtitulo="Procedimentos minimamente invasivos com protocolos personalizados para rosto, pele e corpo."
+              className="mb-10"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {TRATAMENTOS_DESTAQUE.map((t) => (
+                <TratamentoCard key={t.slug} tratamento={t} />
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <a
+                href="/tratamentos"
+                className="inline-flex items-center gap-2 font-sans text-sm text-gold hover:text-gold-light transition-colors"
+              >
+                Ver todos os tratamentos
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Diferenciais */}
+        <section className="bg-surface">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+            <SectionTitle
+              titulo="Por que a Uniko?"
+              subtitulo="Mais do que estética — uma experiência de cuidado completo."
+              className="mb-10"
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {DIFERENCIAIS.map((d) => (
+                <DiferencialCard key={d.id} diferencial={d} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Depoimentos */}
+        <section className="bg-ink">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+            <SectionTitle
+              titulo="O que dizem nossas pacientes"
+              subtitulo="Resultados reais, histórias verdadeiras."
+              className="mb-10"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {DEPOIMENTOS_DESTAQUE.map((d) => (
+                <TestimonialCard key={d.id} depoimento={d} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Banner */}
+        <CTABanner
+          titulo="Pronta para cuidar de você?"
+          subtitulo="Agende sua avaliação gratuita e descubra o protocolo ideal para os seus objetivos."
+          labelBotao="Agendar Avaliação Gratuita"
+          mensagemCustom="Olá! Vim pelo site da Uniko Clinic e gostaria de agendar minha avaliação gratuita."
+        />
+
+        {/* Localização */}
+        <MapEmbed />
       </main>
-    </div>
+      <Footer />
+      <WhatsAppButton />
+    </>
   );
 }
