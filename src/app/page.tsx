@@ -62,7 +62,8 @@ export default function HomePage() {
         <HeroSection
           titulo="Estética que começa por dentro"
           subtitulo="Protocolos exclusivos para um resultado natural, personalizado e que valoriza quem você já é. Agende sua avaliação gratuita com a biomédica Andreia Sarzi."
-          ctaSecundario={{ label: "Conhecer tratamentos", href: "/tratamentos" }}
+          ctaSecundario={{ label: "Ver Tratamentos", href: "/tratamentos" }}
+          showStats
         />
 
         {/* Apresentação da clínica */}

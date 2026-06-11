@@ -49,20 +49,19 @@ export default function SobrePage() {
     <>
       <Header />
       <main>
-        {/* Hero mini */}
-        <section className="bg-ink pt-24 pb-12 md:pt-32 md:pb-16 border-b border-line">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-px w-8 bg-gold" aria-hidden="true" />
-              <span className="font-sans text-xs tracking-[0.25em] text-gold uppercase">
-                Nossa história
-              </span>
-            </div>
-            <h1 className="font-serif text-4xl sm:text-5xl font-light text-cream leading-tight max-w-xl">
-              Conheça a Uniko Clinic
+        {/* Page Hero */}
+        <div className="page-hero">
+          <div className="page-hero-bg" aria-hidden="true" />
+          <div className="page-hero-content">
+            <p className="page-eyebrow">Nossa história</p>
+            <h1 className="page-title">
+              Conheça a <em>Uniko Clinic</em>
             </h1>
+            <p className="page-subtitle">
+              Uma clínica criada por amor à estética responsável, onde cada protocolo respeita quem você é.
+            </p>
           </div>
-        </section>
+        </div>
 
         {/* História */}
         <section className="bg-ink">

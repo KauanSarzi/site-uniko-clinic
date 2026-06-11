@@ -25,23 +25,19 @@ export default function AgendamentoPage() {
     <>
       <Header />
       <main>
-        {/* Hero mini */}
-        <section className="bg-ink pt-24 pb-12 md:pt-32 md:pb-16 border-b border-line">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-px w-8 bg-gold" aria-hidden="true" />
-              <span className="font-sans text-xs tracking-[0.25em] text-gold uppercase">
-                Agendamento
-              </span>
-            </div>
-            <h1 className="font-serif text-4xl sm:text-5xl font-light text-cream leading-tight max-w-xl">
-              Vamos conversar?
+        {/* Page Hero */}
+        <div className="page-hero">
+          <div className="page-hero-bg" aria-hidden="true" />
+          <div className="page-hero-content">
+            <p className="page-eyebrow">Agendamento</p>
+            <h1 className="page-title">
+              Vamos <em>conversar?</em>
             </h1>
-            <p className="mt-3 font-sans text-base text-muted max-w-lg">
+            <p className="page-subtitle">
               Agende sua avaliação gratuita. Sem compromisso — queremos apenas entender seus objetivos.
             </p>
           </div>
-        </section>
+        </div>
 
         {/* WhatsApp CTA destaque */}
         <section className="bg-surface border-b border-line">

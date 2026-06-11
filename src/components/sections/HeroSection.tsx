@@ -8,93 +8,225 @@ interface HeroSectionProps {
   ctaSecundario?: { label: string; href: string };
   backgroundImage?: string;
   fullHeight?: boolean;
+  showStats?: boolean;
 }
+
+const STATS = [
+  { value: "1.200+", label: "Pacientes atendidas" },
+  { value: "4.9★",   label: "Avaliação média" },
+  { value: "98%",    label: "Satisfação" },
+  { value: "8 anos", label: "De experiência" },
+];
 
 export default function HeroSection({
   titulo,
   subtitulo,
-  ctaWhatsApp = "Agendar Avaliação Gratuita",
+  ctaWhatsApp = "AGENDAR AVALIAÇÃO",
   ctaSecundario,
   backgroundImage,
   fullHeight = true,
+  showStats = false,
 }: HeroSectionProps) {
   const whatsappUrl = buildWhatsAppUrl(
     "Olá, vim pelo site da Uniko Clinic e gostaria de agendar minha avaliação gratuita!"
   );
 
+  const words = titulo.split(" ");
+  const midpoint = Math.ceil(words.length / 2);
+  const firstHalf = words.slice(0, midpoint).join(" ");
+  const secondHalf = words.slice(midpoint).join(" ");
+
   return (
     <section
-      className={`relative flex items-center ${fullHeight ? "min-h-screen" : "min-h-[60vh] md:min-h-[70vh]"} overflow-hidden`}
-      style={
-        backgroundImage
-          ? { backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover", backgroundPosition: "center" }
-          : undefined
-      }
+      style={{
+        position: "relative",
+        minHeight: fullHeight ? "100vh" : "60vh",
+        display: "flex",
+        alignItems: "center",
+        overflow: "hidden",
+        background: backgroundImage
+          ? `url(${backgroundImage}) center/cover`
+          : "var(--dark)",
+      }}
     >
-      {/* Gradient overlay */}
+      {/* Background gradient */}
       <div
-        className="absolute inset-0 bg-gradient-to-br from-ink via-ink/90 to-wine-dark/60"
         aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "radial-gradient(ellipse 60% 80% at 100% 50%, rgba(122,21,21,0.2) 0%, transparent 65%), radial-gradient(ellipse 40% 60% at 0% 100%, rgba(77,10,10,0.25) 0%, transparent 60%)",
+          pointerEvents: "none",
+        }}
       />
 
-      {/* Decorative gold accent */}
+      {/* Decorative gold line right */}
       <div
-        className="absolute top-1/3 right-0 w-px h-32 bg-gradient-to-b from-transparent via-gold/40 to-transparent hidden lg:block"
         aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: "1px",
+          height: "100%",
+          background: "linear-gradient(to bottom, transparent, rgba(201,169,110,0.2), transparent)",
+        }}
+      />
+      {/* Decorative gold line bottom */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: "96px",
+          left: 0,
+          right: 0,
+          height: "1px",
+          background: "linear-gradient(to right, transparent, rgba(201,169,110,0.15), transparent)",
+        }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="max-w-2xl lg:max-w-3xl">
-          {/* Tagline chip */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <div className="h-px w-8 bg-gold" aria-hidden="true" />
-            <span className="font-sans text-xs tracking-[0.25em] text-gold uppercase">
-              Uniko Clinic
-            </span>
-          </div>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          maxWidth: "1152px",
+          margin: "0 auto",
+          padding: "112px 24px 80px",
+          display: "grid",
+          gridTemplateColumns: showStats ? "1fr 1fr" : "1fr",
+          gap: "64px",
+          alignItems: "center",
+          width: "100%",
+        }}
+        className="hero-inner"
+      >
+        {/* Text */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          <p
+            className="fade-up"
+            style={{
+              fontSize: "0.68rem",
+              letterSpacing: "0.32em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+            }}
+          >
+            <span style={{ width: "28px", height: "1px", background: "var(--gold)", display: "inline-block" }} aria-hidden="true" />
+            Uniko Clinic — São Paulo
+          </p>
 
-          {/* Title */}
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-cream leading-[1.05] mb-6">
-            {titulo}
+          <h1
+            className="fade-up fade-up-1"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(2.8rem, 5vw, 4.8rem)",
+              fontWeight: 300,
+              lineHeight: 1.06,
+              color: "var(--white)",
+            }}
+          >
+            {firstHalf}{" "}
+            <em style={{ fontStyle: "italic", color: "var(--gold)" }}>
+              {secondHalf}
+            </em>
           </h1>
 
-          {/* Subtitle */}
           {subtitulo && (
-            <p className="font-sans text-base sm:text-lg text-muted leading-relaxed mb-8 max-w-xl">
+            <p
+              className="fade-up fade-up-2"
+              style={{
+                fontSize: "0.92rem",
+                color: "var(--cream)",
+                opacity: 0.6,
+                maxWidth: "520px",
+                lineHeight: 1.8,
+              }}
+            >
               {subtitulo}
             </p>
           )}
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div
+            className="fade-up fade-up-3"
+            style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center" }}
+          >
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-wine text-cream font-sans text-sm font-medium tracking-wide border border-wine-light/30 hover:bg-wine-light transition-colors duration-200"
+              className="btn-gold"
             >
-              <IconWhatsAppSmall />
               {ctaWhatsApp}
             </a>
             {ctaSecundario && (
-              <Link
-                href={ctaSecundario.href}
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-transparent text-cream font-sans text-sm font-medium tracking-wide border border-cream/20 hover:border-gold hover:text-gold transition-all duration-200"
-              >
+              <Link href={ctaSecundario.href} className="btn-ghost">
                 {ctaSecundario.label}
               </Link>
             )}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function IconWhatsAppSmall() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M16 3C8.832 3 3 8.832 3 16c0 2.296.609 4.45 1.664 6.32L3 29l6.855-1.633A12.94 12.94 0 0016 29c7.168 0 13-5.832 13-13S23.168 3 16 3zm-3.152 8.379c-.2 0-.52.074-.793.37-.27.296-1.035 1.011-1.035 2.468 0 1.457 1.058 2.863 1.207 3.063.149.199 2.066 3.148 5.016 4.41.7.301 1.246.48 1.672.614.703.222 1.343.191 1.848.117.563-.082 1.737-.71 1.98-1.398.247-.687.247-1.277.172-1.398-.074-.117-.27-.187-.563-.332-.297-.148-1.755-.867-2.027-.965-.27-.097-.47-.148-.667.149-.199.297-.773.965-.949 1.164-.175.199-.348.223-.644.074-.297-.149-1.254-.461-2.39-1.472-.882-.789-1.48-1.762-1.652-2.059-.172-.3-.019-.457.13-.606.133-.132.296-.348.445-.52.148-.172.199-.297.297-.496.098-.2.05-.372-.024-.52-.075-.149-.668-1.61-.914-2.203-.242-.578-.488-.5-.668-.508l-.573-.01a1.1 1.1 0 00-.797.371z" />
-    </svg>
+        {/* Stats grid */}
+        {showStats && (
+          <div
+            className="fade-up fade-up-4 hero-stats"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "1px",
+              background: "rgba(122,21,21,0.2)",
+            }}
+          >
+            {STATS.map(({ value, label }) => (
+              <div
+                key={label}
+                style={{
+                  background: "var(--card-bg)",
+                  padding: "32px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "2rem",
+                    color: "var(--gold)",
+                    fontWeight: 300,
+                  }}
+                >
+                  {value}
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--cream)",
+                    opacity: 0.4,
+                  }}
+                >
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .hero-inner {
+            grid-template-columns: 1fr !important;
+            padding-top: 96px !important;
+          }
+          .hero-stats { display: none !important; }
+        }
+      `}</style>
+    </section>
   );
 }
