@@ -5,7 +5,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import CTABanner from "@/components/sections/CTABanner";
-import SectionTitle from "@/components/sections/SectionTitle";
 import TratamentoCard from "@/components/cards/TratamentoCard";
 import { tratamentos } from "@/data/tratamentos";
 import type { Categoria } from "@/types";
@@ -23,38 +22,46 @@ export default function TratamentosPage() {
     <>
       <Header />
       <main>
-        {/* Hero mini */}
-        <section className="bg-ink pt-24 pb-12 md:pt-32 md:pb-16 border-b border-line">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-px w-8 bg-gold" aria-hidden="true" />
-              <span className="font-sans text-xs tracking-[0.25em] text-gold uppercase">
-                Uniko Clinic
-              </span>
-            </div>
-            <h1 className="font-serif text-4xl sm:text-5xl font-light text-cream leading-tight max-w-xl">
-              Nossos Tratamentos
+        {/* Page Hero */}
+        <div className="page-hero">
+          <div className="page-hero-bg" aria-hidden="true" />
+          <div className="page-hero-content">
+            <p className="page-eyebrow">Uniko Clinic</p>
+            <h1 className="page-title">
+              Nossos <em>Tratamentos</em>
             </h1>
-            <p className="mt-3 font-sans text-base text-muted max-w-lg">
+            <p className="page-subtitle">
               Protocolos exclusivos para rosto, pele e corpo, desenvolvidos com ciência e cuidado para cada paciente.
             </p>
           </div>
-        </section>
+        </div>
 
         {/* Filtros + Grid */}
-        <section className="bg-ink">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <section style={{ background: "var(--dark)" }}>
+          <div style={{ maxWidth: "1152px", margin: "0 auto" }}>
             {/* Filtros */}
-            <div className="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtrar por categoria">
+            <div
+              style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}
+              role="group"
+              aria-label="Filtrar por categoria"
+            >
               {FILTROS.map((f) => (
                 <button
                   key={f}
                   onClick={() => setFiltro(f)}
-                  className={`px-5 py-2 font-sans text-sm border transition-all duration-200 ${
-                    filtro === f
-                      ? "bg-wine border-wine-light text-cream"
-                      : "bg-surface border-line text-muted hover:border-gold/40 hover:text-cream"
-                  }`}
+                  style={{
+                    padding: "8px 20px",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    border: "1px solid",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    background: filtro === f ? "var(--wine)" : "transparent",
+                    borderColor: filtro === f ? "var(--wine)" : "rgba(201,169,110,0.25)",
+                    color: filtro === f ? "var(--cream)" : "var(--text-muted)",
+                  }}
                 >
                   {f}
                 </button>
@@ -62,14 +69,27 @@ export default function TratamentosPage() {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                gap: "20px",
+              }}
+            >
               {listagem.map((t) => (
                 <TratamentoCard key={t.slug} tratamento={t} />
               ))}
             </div>
 
             {listagem.length === 0 && (
-              <p className="font-sans text-sm text-muted text-center py-16">
+              <p
+                style={{
+                  textAlign: "center",
+                  padding: "64px 0",
+                  color: "var(--text-muted)",
+                  fontSize: "0.88rem",
+                }}
+              >
                 Nenhum tratamento encontrado para esta categoria.
               </p>
             )}
@@ -79,7 +99,7 @@ export default function TratamentosPage() {
         <CTABanner
           titulo="Não sabe qual tratamento é ideal para você?"
           subtitulo="Fale conosco e receba uma orientação personalizada sem compromisso."
-          labelBotao="Falar com a Andreia"
+          labelBotao="FALAR COM A ANDREIA"
           mensagemCustom="Olá! Vim pelo site da Uniko Clinic e gostaria de saber qual tratamento seria mais indicado para mim."
         />
       </main>
