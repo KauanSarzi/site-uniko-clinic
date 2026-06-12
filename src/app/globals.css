@@ -75,11 +75,11 @@ body {
   background: #0D0D0D;
 }
 ::-webkit-scrollbar-thumb {
-  background: #7A1515;
+  background: #2A2A2A;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #9B2020;
+  background: #3A3A3A;
 }
 
 /* ── HEADER / NAV ── */
